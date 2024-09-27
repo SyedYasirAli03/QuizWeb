@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizApp - End Quiz</title>
+    <style>
+        body {
+            background-color: #113873;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .end-quiz-container {
+            width: 80%;
+            min-height: 80%;
+            background: #113873;
+            border-radius: 17px;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .top-bar {
+            width: 100%;
+            height: 60px;
+            background-color: #0F2E5F;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .top-bar a:hover {
+            color: #9747FF;
+        }
+
+        .quiz-name {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .end-quiz-summary {
+            text-align: center;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        .end-quiz-summary p {
+            font-size: 25px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .question-results {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .question-result {
+            margin-bottom: 20px;
+            width: 70%;
+            background: #D9D9D9;
+            border-radius: 10px;
+            padding: 15px;
+            box-sizing: border-box;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-text {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .answer-info {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .correct-answer {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .incorrect-answer {
+            color: #FF5722;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="end-quiz-container">
+        <div class="top-bar">
+            <div class="quiz-name">QuizApp</div>
+            <!-- Add more links as needed -->
+        </div>
+        <div class="end-quiz-summary">
+            <p>Congratulations! You've completed the quiz!</p>
+            <p>Your Results:</p>
+            <p>Correct Answers: <span id="correctCount">0</span></p>
+            <p>Incorrect Answers: <span id="incorrectCount">0</span></p>
+        </div>
+        <div class="question-results" id="questionResults">
+            <!-- Question results will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        // Assume correctAnswersCount and quizResults are available
+        const correctAnswersCount = 8; // Replace with actual correct count
+        const quizResults = [
+            { question: "What is the colour of sky?", correctAnswer: "Blue", selectedAnswer: "Blue" },
+            // Add other questions here
+        ];
+
+        document.getElementById('correctCount').textContent = correctAnswersCount;
+        document.getElementById('incorrectCount').textContent = quizResults.length - correctAnswersCount;
+
+        const questionResultsContainer = document.getElementById('questionResults');
+
+        quizResults.forEach((result, index) => {
+            const questionResult = document.createElement('div');
+            questionResult.className = 'question-result';
+            questionResult.innerHTML = `
+                <div class="question-text">${index + 1}. ${result.question}</div>
+                <div class="answer-info">
+                    <span class="${result.correctAnswer === result.selectedAnswer ? 'correct-answer' : 'incorrect-answer'}">
+                        Correct Answer: ${result.correctAnswer}
+                    </span>
+                    <span>Your Answer: ${result.selectedAnswer}</span>
+                </div>
+            `;
+            questionResultsContainer.appendChild(questionResult);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>QuizApp</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 1440px;
+            height: 1024px;
+            position: relative;
+            background: white;
+        }
+
+        .header {
+            width: 1440px;
+            height: 100px;
+            position: absolute;
+            background: #D9D9D9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            color: #0921F9;
+            font-size: 40px;
+            font-family: Inter;
+            font-style: italic;
+            font-weight: 800;
+            word-wrap: break-word;
+        }
+
+        .quiz-background {
+            width: 1279px;
+            height: 874px;
+            position: absolute;
+            left: 69px;
+            top: 134px;
+            background: #113873;
+            border-radius: 15px;
+        }
+
+        .question-container {
+            width: 600px;
+            height: 400px;
+            position: absolute;
+            left: 400px;
+            top: 300px;
+            background: #D9D9D9;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .question-type {
+            color: black;
+            font-size: 20px;
+            font-family: Inter;
+            font-style: italic;
+            font-weight: 800;
+            word-wrap: break-word;
+            margin-bottom: 10px;
+        }
+
+        .question-input {
+            width: calc(100% - 20px); /* Adjusted width */
+            height: 40px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            font-family: Inter;
+            font-style: italic;
+            font-weight: 600;
+            outline: none;
+        }
+
+        .cancel-btn,
+        .save-next-btn {
+            position: absolute;
+            width: 100px;
+            height: 43px;
+            background: white;
+            border-radius: 15px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .cancel-btn {
+            left: 400px;
+            top: 330px;
+            border: 1px #CCCCCC solid;
+        }
+
+        .save-next-btn {
+            left: 520px;
+            top: 330px;
+            border: 1px #4CAF50 solid;
+            color: white;
+            background: #4CAF50;
+            margin-left: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <div class="logo">QuizApp</div>
+        </div>
+        <button class="join-quiz-btn" onclick="joinQuizClicked()" style="position: absolute; left: 1037px; top: 23px; width: 114px; height: 43px; background: white; border-radius: 15px; border: 1px #F80606 solid; font-weight: bold; font-style: italic;">
+            Join Quiz
+        </button>
+        <button class="create-quiz-btn" onclick="createQuizClicked()" style="position: absolute; left: 1173px; top: 24px; width: 114px; height: 43px; background: white; border-radius: 15px; border: 1px #F80606 solid; font-weight: bold; font-style: italic;">
+            Create Quiz
+        </button>
+
+                <!-- Search Box -->
+                <div class="search-box" style="position: absolute; left: 699px; top: 12px; width: 307px; height: 77px;">
+                    <div style="width: 307px; height: 77px; background: white; position: relative;">
+                        <input type="text" placeholder="Search quiz..." style="width: 301px; height: 57px; left: 2px; top: 14px; position: absolute; color: black; font-size: 20px; font-weight: 800; word-wrap: break-word; border: none; font-style: italic;">
+                    </div>
+                </div>
+
+        <div class="quiz-background"></div>
+
+        <div class="question-container">
+            <div class="question-type">Select Question Type:</div>
+            <select class="question-input">
+                <option value="multiple_choice">Multiple Choice</option>
+                <option value="true_false">True/False</option>
+                <!-- Add more options as needed -->
+            </select>
+
+            <input type="text" class="question-input" placeholder="Enter Quiz Name...">
+
+            <button class="cancel-btn" onclick="cancelClicked()">
+                Cancel
+            </button>
+
+            <button class="save-next-btn" onclick="saveNextClicked()">
+                Save & Next
+            </button>
+
+            <!-- Additional elements for question creation go here... -->
+
+            
+
+        </div>
+
+        <!-- Other elements go here... -->
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

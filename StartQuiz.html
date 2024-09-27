@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizApp - Start Quiz</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .quiz-container {
+            width: 100%;
+            height: 100vh;
+            background: white;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .question-container {
+            width: 60%;
+            height: 60%;
+            background: #113873;
+            border-radius: 17px;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+            color: white;
+        }
+
+        .question-text {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .answer-option {
+            font-size: 18px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            position: relative;
+            color: white;
+        }
+
+        .start-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: #652CFF;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .start-button:hover {
+            background-color: #9747FF;
+        }
+
+        .feedback-icon {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .feedback-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <div class="question-container" id="questionContainer">
+            <div class="question-text">Welcome to QuizApp!</div>
+            <button class="start-button" onclick="startQuiz()">Start Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const savedQuestions = loadQuestions(); // Load saved questions from storage
+        let currentQuestionIndex = 0;
+
+        function loadQuestions() {
+            const storedQuestions = sessionStorage.getItem('quizQuestions');
+            return storedQuestions ? JSON.parse(storedQuestions) : [];
+        }
+
+        function startQuiz() {
+            const questionContainer = document.getElementById('questionContainer');
+
+            if (currentQuestionIndex < savedQuestions.length) {
+                const currentQuestion = savedQuestions[currentQuestionIndex];
+
+                // Display the current question
+                questionContainer.innerHTML = `
+                    <div class="question-text">${currentQuestion.question}</div>
+                    ${currentQuestion.answers.map((answer, index) => `
+                        <div class="answer-option" onclick="selectAnswer(${index})">${answer}</div>
+                    `).join("")}
+                `;
+
+                currentQuestionIndex++;
+            } else {
+                // Quiz has ended
+                questionContainer.innerHTML = `
+                    <div class="question-text">Quiz Ended!</div>
+                    <button class="start-button" onclick="endQuiz()">Finish</button>
+                `;
+            }
+        }
+
+        function selectAnswer(answerIndex) {
+            const questionContainer = document.getElementById('questionContainer');
+
+            // Add your logic to check if the selected answer is correct
+            const isCorrect = /* Add your logic here */;
+
+            if (isCorrect) {
+                showFeedbackIcon(questionContainer, 'green-tic.png');
+            } else {
+                showFeedbackIcon(questionContainer, 'red-cross.png');
+            }
+
+            // Move to the next question
+            startQuiz();
+        }
+
+        function showFeedbackIcon(container, iconSrc) {
+            const feedbackIcon = document.createElement('div');
+            feedbackIcon.className = 'feedback-icon';
+            feedbackIcon.innerHTML = `<img src="${iconSrc}" alt="Feedback">`;
+            container.appendChild(feedbackIcon);
+        }
+
+        function endQuiz() {
+            // Add your logic for ending the quiz
+            alert('Quiz Ended!');
+            // You can redirect or perform other actions as needed
+        }
+    </script>
+</body>
+
+</html>

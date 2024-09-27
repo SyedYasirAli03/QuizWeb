@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            background-color: #113873;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .quiz-container {
+            width: 80%;
+            min-height: 80%;
+            background: #113873;
+            border-radius: 17px;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .top-bar {
+            width: 100%;
+            height: 60px;
+            background-color: #0F2E5F;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .top-bar a:hover {
+            color: #9747FF;
+        }
+
+        .quiz-name {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .question-type {
+            width: 100%;
+            height: 40px;
+            background-color: #1C4A8A;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        .question-type span {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .question-type select {
+            width: 100px;
+            height: 30px;
+            border: none;
+            border-radius: 7px;
+            background-color: #D9D9D9;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .question-type select:focus {
+            outline: none;
+        }
+
+        .main-section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            box-sizing: border-box;
+        }
+
+        .question-box {
+            width: 100%;
+            max-width: 800px;
+            background-color: #D9D9D9;
+            border-radius: 7px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .question-box textarea {
+            width: calc(100% - 40px);
+            height: 64.75px;
+            border: none;
+            border-radius: 7px;
+            background-color: white;
+            color: black;
+            font-size: 20px;
+            font-family: 'Inter', sans-serif;
+            font-style: italic;
+            font-weight: 800;
+            resize: none;
+            text-align: center;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .answers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0px;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+
+        .answer-box {
+            width: calc(50% - 20px);
+            max-width: 400px;
+            height: 150px;
+            background-color: #D9D9D9;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .answer-box textarea {
+            width: calc(100% - 40px);
+            height: calc(60% - 20px);
+            border: none;
+            border-radius: 7px;
+            background-color: white;
+            color: black;
+            font-size: 20px;
+            font-family: 'Inter', sans-serif;
+            font-style: italic;
+            font-weight: 400;
+            resize: none;
+            text-align: center;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .answer-box input[type="radio"] {
+            width: 35px;
+            height: 45px;
+            background-color: black;
+            border: none;
+            border-radius: 9999px;
+            position: absolute;
+            left: 12.5px;
+            top: 7.5px;
+        }
+
+        .answer-box input[type="radio"]:focus {
+            outline: none;
+        }
+
+        .answer-box input[type="radio"]:checked {
+            background-color: #9747FF;
+        }
+
+        .answer-box button {
+            width: 36px;
+            height: 36px;
+            background-color: #D9D9D9;
+            border: 3px solid black;
+            border-radius: 9999px;
+            position: absolute;
+            right: 12px;
+            top: 12px;
+        }
+
+        .answer-box button:focus {
+            outline: none;
+        }
+
+        .answer-box button:hover {
+            background-color: #9747FF;
+        }
+
+        .navigation {
+            width: 100%;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .navigation button {
+            width: 150px;
+            height: 50px;
+            border: none;
+            border-radius: 7px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .navigation button:focus {
+            outline: none;
+        }
+
+        .navigation button:hover {
+            background-color: #9747FF;
+        }
+
+        .navigation button:disabled {
+            background-color: #D9D9D9;
+            color: #BFBFBF;
+            cursor: not-allowed;
+        }
+
+        .navigation .previous {
+            background-color: white;
+            color: black;
+        }
+
+        .navigation .next {
+            background-color: #FF8C00;
+            color: white;
+        }
+
+        .quiz-controls {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            box-sizing: border-box;
+        }
+
+        .quiz-controls button {
+            width: 150px;
+            height: 50px;
+            border: none;
+            border-radius: 7px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .quiz-controls button:hover {
+            background-color: #9747FF;
+        }
+
+        .add-answer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .add-answer button {
+            width: 36px;
+            height: 36px;
+            background-color: #0F2E5F;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .add-answer button:hover {
+            background-color: #113873;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <div class="top-bar">
+            <div class="quiz-name">QuizApp</div>
+            <!-- Add more links as needed -->
+        </div>
+        <div class="question-type">
+            <span>Multiple Choice</span>
+            <div class="options">
+                <span>Points:</span>
+                <select name="points">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <span>Time limit:</span>
+                <select name="time">
+                    <option value="10">10s</option>
+                    <option value="20">20s</option>
+                    <option value="30">30s</option>
+                    <option value="40">40s</option>
+                    <option value="50">50s</option>
+                    <option value="60">60s</option>
+                </select>
+            </div>
+        </div>
+        <div class="main-section">
+            <div class="question-box">
+                <textarea name="question" placeholder="Type your question here..."></textarea>
+                <div class="answers" id="answers-container">
+                    <div class="answer-box">
+                        <textarea name="answer1" placeholder="Type answer here"></textarea>
+                        <input type="radio" name="correct" value="1">
+                        <button name="option1">...</button>
+                    </div>
+                    <div class="answer-box">
+                        <textarea name="answer2" placeholder="Type answer here"></textarea>
+                        <input type="radio" name="correct" value="2">
+                        <button name="option2">...</button>
+                    </div>
+                </div>
+                <div class="add-answer">
+                    <button onclick="addAnswer()">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="quiz-controls">
+            <button id="previous-question" onclick="previousQuestion()">Previous</button>
+            <button id="start-quiz" onclick="startQuiz()">Start Quiz</button>
+            <button id="next-question" onclick="nextQuestion()">Next</button>
+            <button id="save-quiz" onclick="saveQuiz()">Save Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = loadQuestions(); // Load existing questions from sessionStorage
+        let currentQuestionIndex = 0;
+
+        function loadQuestions() {
+            const storedQuestions = sessionStorage.getItem('quizQuestions');
+            return storedQuestions ? JSON.parse(storedQuestions) : [];
+        }
+
+        function saveQuestions() {
+            sessionStorage.setItem('quizQuestions', JSON.stringify(questions));
+        }
+
+        function startQuiz() {
+            const questionContainer = document.querySelector('.question-box');
+            questionContainer.classList.remove('hide');
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                updateQuestionAndAnswers();
+            }
+        }
+
+        function nextQuestion() {
+            if (validateCurrentQuestion()) {
+                const questionData = {
+                    question: document.querySelector('[name="question"]').value,
+                    answers: Array.from(document.querySelectorAll('.answer-box textarea')).map(answer => answer.value),
+                    correctAnswerIndex: Array.from(document.querySelectorAll('.answer-box input[type="radio"]')).findIndex(radio => radio.checked)
+                };
+
+                questions[currentQuestionIndex] = questionData;
+                clearQuestionInputs();
+                currentQuestionIndex++;
+
+                if (currentQuestionIndex < 3) { // Change 3 to the desired number of questions
+                    updateQuestionAndAnswers();
+                } else {
+                    alert('You have reached the maximum number of questions.');
+                }
+            }
+        }
+
+        function validateCurrentQuestion() {
+            const currentQuestion = document.querySelector('[name="question"]').value;
+            const answers = Array.from(document.querySelectorAll('.answer-box textarea')).map(answer => answer.value);
+
+            if (currentQuestion.trim() === '' || answers.some(answer => answer.trim() === '')) {
+                alert('Please fill out the question and all answer options.');
+                return false;
+            }
+
+            return true;
+        }
+
+        function updateQuestionAndAnswers() {
+            const questionElement = document.querySelector('[name="question"]');
+            const answerInputs = document.querySelectorAll('.answer-box textarea');
+            const radioButtons = document.querySelectorAll('.answer-box input[type="radio"]');
+
+            questionElement.value = questions[currentQuestionIndex].question;
+            questions[currentQuestionIndex].answers.forEach((answer, index) => (answerInputs[index].value = answer));
+            radioButtons.forEach((radio, index) => (radio.checked = index === questions[currentQuestionIndex].correctAnswerIndex));
+        }
+
+        function clearQuestionInputs() {
+            const questionElement = document.querySelector('[name="question"]');
+            const answerInputs = document.querySelectorAll('.answer-box textarea');
+            const radioButtons = document.querySelectorAll('.answer-box input[type="radio"]');
+
+            questionElement.value = '';
+            answerInputs.forEach(input => (input.value = ''));
+            radioButtons.forEach(radio => (radio.checked = false));
+        }
+
+        function addAnswer() {
+            const answersContainer = document.getElementById('answers-container');
+            if (answersContainer.children.length < 4) { // Limit to 4 answer options
+                const answerBox = document.createElement('div');
+                answerBox.className = 'answer-box';
+                answerBox.innerHTML = `
+                    <textarea name="answer${answersContainer.children.length + 1}" placeholder="Type answer here"></textarea>
+                    <input type="radio" name="correct" value="${answersContainer.children.length + 1}">
+                    <button name="option${answersContainer.children.length + 1}">...</button>
+                `;
+                answersContainer.appendChild(answerBox);
+            } else {
+                alert('Maximum 4 answer options allowed.');
+            }
+        }
+
+        function saveQuiz() {
+            if (validateCurrentQuestion()) {
+                const questionData = {
+                    question: document.querySelector('[name="question"]').value,
+                    answers: Array.from(document.querySelectorAll('.answer-box textarea')).map(answer => answer.value),
+                    correctAnswerIndex: Array.from(document.querySelectorAll('.answer-box input[type="radio"]')).findIndex(radio => radio.checked)
+                };
+
+                questions[currentQuestionIndex] = questionData;
+                saveQuestions();
+                alert('Quiz saved successfully!');
+            }
+        }
+    </script>
+</body>
+</html>
+<!-- <div class="quiz-controls">
+    <button id="previous-question" onclick="previousQuestion()">Previous</button>
+    <button id="start-quiz" onclick="startQuiz()">Start Quiz</button>
+    <button id="next-question" onclick="nextQuestion()">Next</button>
+    <button id="save-quiz" onclick="saveQuiz()">Save Quiz</button>
+</div>
+</div>
+
+<script>
+const questions = loadQuestions(); // Load existing questions from sessionStorage
+let currentQuestionIndex = 0;
+
+function loadQuestions() {
+    const storedQuestions = sessionStorage.getItem('quizQuestions');
+    return storedQuestions ? JSON.parse(storedQuestions) : [];
+}
+
+function saveQuestions() {
+    sessionStorage.setItem('quizQuestions', JSON.stringify(questions));
+}
+
+function startQuiz() {
+    const questionContainer = document.querySelector('.question-box');
+    questionContainer.classList.remove('hide');
+}
+
+function previousQuestion() {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        updateQuestionAndAnswers();
+    }
+}
+
+function nextQuestion() {
+    if (validateCurrentQuestion()) {
+        const questionData = {
+            question: document.querySelector('[name="question"]').value,
+            answers: Array.from(document.querySelectorAll('.answer-box textarea')).map(answer => answer.value),
+            correctAnswerIndex: Array.from(document.querySelectorAll('.answer-box input[type="radio"]')).findIndex(radio => radio.checked)
+        };
+
+        questions[currentQuestionIndex] = questionData;
+        clearQuestionInputs();
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < 3) { // Change 3 to the desired number of questions
+            updateQuestionAndAnswers();
+        } else {
+            alert('You have reached the maximum number of questions.');
+        }
+    }
+}
+
+function validateCurrentQuestion() {
+    const currentQuestion = document.querySelector('[name="question"]').value;
+    const answers = Array.from(document.querySelectorAll('.answer-box textarea')).map(answer => answer.value);
+
+    if (currentQuestion.trim() === '' || answers.some(answer => answer.trim() === '')) {
+        alert('Please fill out the question and all answer options.');
+        return false;
+    }
+
+    return true;
+}
+
+function updateQuestionAndAnswers() {
+    const questionElement = document.querySelector('[name="question"]');
+    const answerInputs = document.querySelectorAll('.answer-box textarea');
+    const radioButtons = document.querySelectorAll('.answer-box input[type="radio"]');
+
+    questionElement.value = questions[currentQuestionIndex].question;
+    questions[currentQuestionIndex].answers.forEach((answer, index) => (answerInputs[index].value = answer));
+    radioButtons.forEach((radio, index) => (radio.checked = index === questions[currentQuestionIndex].correctAnswerIndex));
+}
+
+function clearQuestionInputs() {
+    const questionElement = document.querySelector('[name="question"]');
+    const answerInputs = document.querySelectorAll('.answer-box textarea');
+    const radioButtons = document.querySelectorAll('.answer-box input[type="radio"]');
+
+    questionElement.value = '';
+    answerInputs.forEach(input => (input.value = ''));
+    radioButtons.forEach(radio => (radio.checked = false));
+}
+
+function addAnswer() {
+    const answersContainer = document.getElementById('answers-container');
+    if (answersContainer.children.length < 4) { // Limit to 4 answer options
+        const answerBox = document.createElement('div');
+        answerBox.className = 'answer-box';
+        answerBox.innerHTML = `
+            <textarea name="answer${answersContainer.children.length + 1}" placeholder="Type answer here"></textarea>
+            <input type="radio" name="correct" value="${answersContainer.children.length + 1}">
+            <button name="option${answersContainer.children.length + 1}">...</button>
+        `;
+        answersContainer.appendChild(answerBox);
+    } else {
+        alert('Maximum 4 answer options allowed.');
+    }
+}
+
+function saveQuiz() {
+    if (validateCurrentQuestion()) {
+        const questionData = {
+            question: document.querySelector('[name="question"]').value,
+            answers: Array.from(document.querySelectorAll('.answer-box textarea')).map(answer => answer.value),
+            correctAnswerIndex: Array.from(document.querySelectorAll('.answer-box input[type="radio"]')).findIndex(radio => radio.checked)
+        };
+
+        questions[currentQuestionIndex] = questionData;
+        saveQuestions();
+        alert('Quiz saved successfully!');
+    }
+}
+</script>
+</body>
+
+</html> -->
